@@ -101,23 +101,26 @@ public class MateriaController {
         Conectar c= new Conectar();
         Connection cn = c.conexion();
         DefaultTableModel modelo = null;
-        String sql = "SELECT nombre, creditos, nota FROM materia WHERE codigo = "+codigo+"";
+        String sql = "SELECT nombre, creditos, nota FROM materia";
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rstb = ps.executeQuery(sql);
             ResultSetMetaData rsmd = rstb.getMetaData();
             int col = rsmd.getColumnCount();
             modelo = new DefaultTableModel();
-            for (int i = 0; i < col; i++) {
-                modelo.addColumn(rsmd.getColumnLabel(i+1));
-            }
-            while(rstb.next()){
-                String filas[] = new String[col];
-                for(int j=0;j<col;j++){
-                    filas[j]=rstb.getString(j+1);
+            if(col > 0){
+                for (int i = 0; i < col; i++) {
+                    modelo.addColumn(rsmd.getColumnLabel(i+1));
                 }
-                modelo.addRow(filas);
+                while(rstb.next()){
+                    String filas[] = new String[col];
+                    for(int j=0;j<col;j++){
+                        filas[j]=rstb.getString(j+1);
+                    }
+                    modelo.addRow(filas);
+                }
             }
+            
             cn.close();
         } catch (SQLException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);

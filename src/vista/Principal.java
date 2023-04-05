@@ -27,7 +27,6 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         jLabel_nombre.setText(li.user[0]);
         jLabel_codigo.setText(li.user[1]);
         jTable_ListaMaterias.setModel(mc.mostrarListaMaterias(li.user[1]));
@@ -351,14 +350,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         String nombre;
-        float nota;
+        int nota;
         int creditos;
         MateriaController mc = new MateriaController();
         if(jTF_NombreMateria.getText().equals("")||jTF_Nota.getText().equals("")||jTF_Creditos.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Algun campo esta vacio.");
         }else{
             nombre = jTF_NombreMateria.getText();
-            nota = new Float(jTF_Nota.getText());
+            nota = new Integer(jTF_Nota.getText());
             creditos = new Integer(jTF_Creditos.getText());
             codigo = jLabel_codigo.getText();
             if(mc.buscarMateriaPorCodigo(nombre, codigo)){

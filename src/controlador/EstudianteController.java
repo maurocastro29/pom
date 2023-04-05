@@ -42,7 +42,7 @@ public class EstudianteController {
     public String buscarNombre(String usuario){
         Conectar c= new Conectar();
         Connection cn=c.conexion();
-        String nom = new String();
+        String nom = "";
         String sql="SELECT nombre FROM estudiante WHERE usuario = ?";
         try{
             PreparedStatement ps = cn.prepareStatement(sql);
@@ -64,12 +64,12 @@ public class EstudianteController {
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, usuario);
-            int n = ps.executeUpdate();
-            if(n>0){
+            boolean sw = ps.execute();
+            if(sw){
                 return true;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error existe usuario");
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesion con el usuario");
             Logger.getLogger(EstudianteController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
