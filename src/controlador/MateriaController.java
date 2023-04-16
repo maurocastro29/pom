@@ -101,7 +101,7 @@ public class MateriaController {
         Conectar c= new Conectar();
         Connection cn = c.conexion();
         DefaultTableModel modelo = null;
-        String sql = "SELECT nombre, creditos, nota FROM materia";
+        String sql = "SELECT nombre, creditos, nota FROM materia WHERE codigo = "+codigo+"";
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rstb = ps.executeQuery(sql);
